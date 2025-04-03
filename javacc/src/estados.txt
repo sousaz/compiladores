@@ -1,0 +1,7 @@
+int a=45, b=2, c=4;
+int a, b, c;
+int a=0;
+int abc = 90;
+int x = "a";
+int x, b;
+String teste = "testando";

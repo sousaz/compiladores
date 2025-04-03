@@ -1,0 +1,52 @@
+options {
+	static = false;	
+}
+
+PARSER_BEGIN(Adder)
+
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.IOException;
+
+public class Adder{
+	public static void main(String args[]) throws ParseException {
+		try {
+			System.out.println("lendo um arquivo fonte...");
+			FileInputStream fis = new FileInputStream(new File("..//javacc//src//fonte.txt"));
+			Adder parser = new Adder(fis);
+//			Adder parser = new Adder(System.in);
+			parser.start();
+			System.out.println("Arquivo fonte processado corretamente");
+		} catch(IOException e) {
+			System.out.println("Falha ao abrir o arquivo");
+			System.exit(0);
+		}
+	}
+}
+
+PARSER_END(Adder)
+
+SKIP : { " " | "\t" | "\n" | "\r" }
+
+TOKEN : { <  #PLUS : "+" > }
+
+TOKEN : {< #MINUS : "-" > }
+
+TOKEN : {< #DIV : "/" > }
+
+TOKEN : {< #MULTI : "*" > }
+
+TOKEN : { < OP: < PLUS > | < MINUS > | < DIV > | < MULTI > > }
+
+TOKEN : { < #NUMBER : ([ "0"-"9" ]) + | ([ "0"-"9" ])+ "," ([ "0"-"9" ])+ > }
+
+TOKEN : { < #LETTER : ([ "a"-"z" ])+ > }
+
+TOKEN : { < LITERAL : < NUMBER > | < NUMBER > <LETTER >> }
+
+TOKEN : { < EOL : ";" > }
+
+void start() : {} { ( <  LITERAL > (< OP > < LITERAL >)* ( "="  < LITERAL > ( < OP > < LITERAL > )*)? < EOL > )+ < EOF > }
+
+
+

@@ -1,0 +1,83 @@
+options {
+	static = false;
+	DEBUG_PARSER = true;
+	DEBUG_TOKEN_MANAGER = true;
+}
+
+PARSER_BEGIN(Trabalho01)
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.IOException;
+
+public class Trabalho01{
+	public static void main(String args[]) throws ParseException {
+		try {
+			System.out.println("lendo um arquivo fonte...");
+			FileInputStream fis = new FileInputStream(new File("..//javacc//src//trabalho01.txt"));
+			Trabalho01 parser = new Trabalho01(fis);
+			parser.Start();
+			System.out.println("Arquivo fonte processado corretamente");
+		} catch(IOException e) {
+			System.out.println("Falha ao abrir o arquivo");
+			System.exit(0);
+		}
+	}
+}
+
+PARSER_END(Trabalho01)
+
+SKIP : { " " | "\t" | "\n" | "\r" | "\r\n" }
+
+TOKEN :{ < EOL : ";" > }
+
+TOKEN : {
+  < COMENTARIO_LINHA : "//" ((~["\n", "\r"])*) >
+}
+
+TOKEN : {
+	< COMENTARIO_BLOCO : "/*" (~["*"])* "*" (~["*","/"] (~["*"])* "*" | "*")* "/" >
+}
+
+TOKEN : {
+	< IF : "sepa" >
+}
+
+TOKEN : {
+  < PARENTESE_A : "(" >
+}
+
+TOKEN : {
+  < PARENTESE_F : ")" >
+}
+
+TOKEN : {
+	< CHAVE_A : "{" >
+}
+
+TOKEN : {
+	< CHAVE_F : "}" >
+}
+
+TOKEN : {
+	< LITERAL : < LETTER > (< NUMBER > | <LETTER > | "_")* >
+}
+
+TOKEN : {
+	< OPERADOR_RELACIONAL : ("<" | "<=" | ">" | ">=" | "==" | "!=") >
+}
+
+TOKEN : { < #NUMBER : ([ "0"-"9" ]) + | ([ "0"-"9" ])+ "," ([ "0"-"9" ])+ > }
+
+TOKEN : { < #LETTER : ([ "a"-"z" ])+ > }
+
+void IF(): {}
+{
+  < IF > < PARENTESE_A > < LITERAL >  <OPERADOR_RELACIONAL > < LITERAL > < PARENTESE_F > < CHAVE_A > < CHAVE_F >
+}
+
+void Start():
+{}
+{
+//  ((< COMENTARIO_LINHA >) | (< COMENTARIO_BLOCO >))* < EOF >
+	(IF())+ < EOF >
+}
