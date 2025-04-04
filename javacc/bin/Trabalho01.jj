@@ -28,8 +28,6 @@ PARSER_END(Trabalho01)
 
 SKIP : { " " | "\t" | "\n" | "\r" | "\r\n" }
 
-TOKEN :{ < EOL : ";" > }
-
 TOKEN : {
   < COMENTARIO_LINHA : "//" ((~["\n", "\r"])*) >
 }
@@ -38,8 +36,51 @@ TOKEN : {
 	< COMENTARIO_BLOCO : "/*" (~["*"])* "*" (~["*","/"] (~["*"])* "*" | "*")* "/" >
 }
 
+TOKEN :
+{
+< TIPO : (<INT> | <STRING>|<BYTE>|<SHORT>|<LONG>|<FLOAT>)|<DOUBLE>|<CHAR>|<BOOLEAN> > |
+< #INT : "int"> |
+< #STRING : "String"> |
+< #BYTE : "byte" > |
+< #SHORT : "short" > |
+< #LONG : "long" > |
+< #FLOAT : "float" > |
+< #DOUBLE : "double" > |
+< #CHAR : "char" > |
+< #BOOLEAN : "boolean" >
+}
+
+TOKEN: {
+	< OPERADOR_ARITMETICO : ("+" | "-" | "/" | "*") >
+}
+
+
 TOKEN : {
 	< IF : "sepa" >
+}
+
+TOKEN : {
+	< ELSE : "sepaqnao" >
+}
+
+TOKEN : {
+	< WHILE : "trampo" >
+}
+
+TOKEN : {
+	< FOR : "mocota" >
+}
+
+TOKEN : {
+	< INPUT : "desembucha" >
+}
+
+TOKEN : {
+	< PRINT : "chegaai" > 
+}
+
+TOKEN : {
+	< FUNCAO : "funcao" > 
 }
 
 TOKEN : {
@@ -59,6 +100,10 @@ TOKEN : {
 }
 
 TOKEN : {
+	< ATRIBUICAO : "=" >
+}
+
+TOKEN : {
 	< LITERAL : < LETTER > (< NUMBER > | <LETTER > | "_")* >
 }
 
@@ -66,18 +111,66 @@ TOKEN : {
 	< OPERADOR_RELACIONAL : ("<" | "<=" | ">" | ">=" | "==" | "!=") >
 }
 
+TOKEN : {
+	<  VALUE : < NUMBER > >
+}
+
+TOKEN : {
+	< PONTO_VIRGULA : ";" >
+}
+
+TOKEN : {
+	< VIRGULA : "," >
+}
+
+TOKEN : {
+	<  INC_DEC : (< LITERAL >"++") | (< LITERAL >"--") >
+}
+
 TOKEN : { < #NUMBER : ([ "0"-"9" ]) + | ([ "0"-"9" ])+ "," ([ "0"-"9" ])+ > }
 
 TOKEN : { < #LETTER : ([ "a"-"z" ])+ > }
 
+// TODO literal pode ser numero tambem
+
 void IF(): {}
 {
-  < IF > < PARENTESE_A > < LITERAL >  <OPERADOR_RELACIONAL > < LITERAL > < PARENTESE_F > < CHAVE_A > < CHAVE_F >
+  < IF > < PARENTESE_A > < LITERAL >  <OPERADOR_RELACIONAL > < LITERAL > < PARENTESE_F > < CHAVE_A > (IF())? < CHAVE_F > (ELSE())?
+}
+
+void ELSE(): {}
+{
+  < ELSE > < CHAVE_A > (IF())? < CHAVE_F >
+}
+
+void WHILE(): {}
+{
+  < WHILE >  < PARENTESE_A > < LITERAL >  <OPERADOR_RELACIONAL > < LITERAL > < PARENTESE_F > < CHAVE_A > < CHAVE_F >
+}
+
+void FOR(): {}
+{
+  < FOR > < PARENTESE_A > < TIPO > < LITERAL > < ATRIBUICAO > < VALUE > < PONTO_VIRGULA > < LITERAL > < OPERADOR_RELACIONAL > < VALUE > < PONTO_VIRGULA > < INC_DEC > < PARENTESE_F > < CHAVE_A > (FOR())? < CHAVE_F >
+}
+
+void INPUT(): {}
+{
+  < INPUT > < PARENTESE_A > < LITERAL > < PARENTESE_F >
+}
+
+void PRINT(): {}
+{
+  <  PRINT > < PARENTESE_A > (("\""< LITERAL >"\"" (< VIRGULA > < LITERAL >)*) | < LITERAL > | < VALUE >) < PARENTESE_F >
+}
+
+void FUNCAO(): {}
+{
+  < FUNCAO > < LITERAL > < PARENTESE_A > (< TIPO > < LITERAL > (< VIRGULA > < TIPO > < LITERAL >)*) < PARENTESE_F > < CHAVE_A > < CHAVE_F >
 }
 
 void Start():
 {}
 {
 //  ((< COMENTARIO_LINHA >) | (< COMENTARIO_BLOCO >))* < EOF >
-	(IF())+ < EOF >
+	(FUNCAO())+ < EOF >
 }

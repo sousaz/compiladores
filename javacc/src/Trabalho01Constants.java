@@ -9,29 +9,71 @@ public interface Trabalho01Constants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int EOL = 6;
+  int COMENTARIO_LINHA = 6;
   /** RegularExpression Id. */
-  int COMENTARIO_LINHA = 7;
+  int COMENTARIO_BLOCO = 7;
   /** RegularExpression Id. */
-  int COMENTARIO_BLOCO = 8;
+  int TIPO = 8;
   /** RegularExpression Id. */
-  int IF = 9;
+  int INT = 9;
   /** RegularExpression Id. */
-  int PARENTESE_A = 10;
+  int STRING = 10;
   /** RegularExpression Id. */
-  int PARENTESE_F = 11;
+  int BYTE = 11;
   /** RegularExpression Id. */
-  int CHAVE_A = 12;
+  int SHORT = 12;
   /** RegularExpression Id. */
-  int CHAVE_F = 13;
+  int LONG = 13;
   /** RegularExpression Id. */
-  int LITERAL = 14;
+  int FLOAT = 14;
   /** RegularExpression Id. */
-  int OPERADOR_RELACIONAL = 15;
+  int DOUBLE = 15;
   /** RegularExpression Id. */
-  int NUMBER = 16;
+  int CHAR = 16;
   /** RegularExpression Id. */
-  int LETTER = 17;
+  int BOOLEAN = 17;
+  /** RegularExpression Id. */
+  int OPERADOR_ARITMETICO = 18;
+  /** RegularExpression Id. */
+  int IF = 19;
+  /** RegularExpression Id. */
+  int ELSE = 20;
+  /** RegularExpression Id. */
+  int WHILE = 21;
+  /** RegularExpression Id. */
+  int FOR = 22;
+  /** RegularExpression Id. */
+  int INPUT = 23;
+  /** RegularExpression Id. */
+  int PRINT = 24;
+  /** RegularExpression Id. */
+  int FUNCAO = 25;
+  /** RegularExpression Id. */
+  int PARENTESE_A = 26;
+  /** RegularExpression Id. */
+  int PARENTESE_F = 27;
+  /** RegularExpression Id. */
+  int CHAVE_A = 28;
+  /** RegularExpression Id. */
+  int CHAVE_F = 29;
+  /** RegularExpression Id. */
+  int ATRIBUICAO = 30;
+  /** RegularExpression Id. */
+  int LITERAL = 31;
+  /** RegularExpression Id. */
+  int OPERADOR_RELACIONAL = 32;
+  /** RegularExpression Id. */
+  int VALUE = 33;
+  /** RegularExpression Id. */
+  int PONTO_VIRGULA = 34;
+  /** RegularExpression Id. */
+  int VIRGULA = 35;
+  /** RegularExpression Id. */
+  int INC_DEC = 36;
+  /** RegularExpression Id. */
+  int NUMBER = 37;
+  /** RegularExpression Id. */
+  int LETTER = 38;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -44,18 +86,40 @@ public interface Trabalho01Constants {
     "\"\\n\"",
     "\"\\r\"",
     "\"\\r\\n\"",
-    "\";\"",
     "<COMENTARIO_LINHA>",
     "<COMENTARIO_BLOCO>",
+    "<TIPO>",
+    "\"int\"",
+    "\"String\"",
+    "\"byte\"",
+    "\"short\"",
+    "\"long\"",
+    "\"float\"",
+    "\"double\"",
+    "\"char\"",
+    "\"boolean\"",
+    "<OPERADOR_ARITMETICO>",
     "\"sepa\"",
+    "\"sepaqnao\"",
+    "\"trampo\"",
+    "\"mocota\"",
+    "\"desembucha\"",
+    "\"chegaai\"",
+    "\"funcao\"",
     "\"(\"",
     "\")\"",
     "\"{\"",
     "\"}\"",
+    "\"=\"",
     "<LITERAL>",
     "<OPERADOR_RELACIONAL>",
+    "<VALUE>",
+    "\";\"",
+    "\",\"",
+    "<INC_DEC>",
     "<NUMBER>",
     "<LETTER>",
+    "\"\\\"\"",
   };
 
 }

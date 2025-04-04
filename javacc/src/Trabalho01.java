@@ -18,7 +18,9 @@ public class Trabalho01 implements Trabalho01Constants {
                 }
         }
 
-  final public void IF() throws ParseException {
+// TODO literal pode ser numero tambem
+  final public 
+void IF() throws ParseException {
     trace_call("IF");
     try {
 
@@ -29,9 +31,189 @@ public class Trabalho01 implements Trabalho01Constants {
       jj_consume_token(LITERAL);
       jj_consume_token(PARENTESE_F);
       jj_consume_token(CHAVE_A);
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case IF:{
+        IF();
+        break;
+        }
+      default:
+        jj_la1[0] = jj_gen;
+        ;
+      }
       jj_consume_token(CHAVE_F);
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case ELSE:{
+        ELSE();
+        break;
+        }
+      default:
+        jj_la1[1] = jj_gen;
+        ;
+      }
     } finally {
       trace_return("IF");
+    }
+}
+
+  final public void ELSE() throws ParseException {
+    trace_call("ELSE");
+    try {
+
+      jj_consume_token(ELSE);
+      jj_consume_token(CHAVE_A);
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case IF:{
+        IF();
+        break;
+        }
+      default:
+        jj_la1[2] = jj_gen;
+        ;
+      }
+      jj_consume_token(CHAVE_F);
+    } finally {
+      trace_return("ELSE");
+    }
+}
+
+  final public void WHILE() throws ParseException {
+    trace_call("WHILE");
+    try {
+
+      jj_consume_token(WHILE);
+      jj_consume_token(PARENTESE_A);
+      jj_consume_token(LITERAL);
+      jj_consume_token(OPERADOR_RELACIONAL);
+      jj_consume_token(LITERAL);
+      jj_consume_token(PARENTESE_F);
+      jj_consume_token(CHAVE_A);
+      jj_consume_token(CHAVE_F);
+    } finally {
+      trace_return("WHILE");
+    }
+}
+
+  final public void FOR() throws ParseException {
+    trace_call("FOR");
+    try {
+
+      jj_consume_token(FOR);
+      jj_consume_token(PARENTESE_A);
+      jj_consume_token(TIPO);
+      jj_consume_token(LITERAL);
+      jj_consume_token(ATRIBUICAO);
+      jj_consume_token(VALUE);
+      jj_consume_token(PONTO_VIRGULA);
+      jj_consume_token(LITERAL);
+      jj_consume_token(OPERADOR_RELACIONAL);
+      jj_consume_token(VALUE);
+      jj_consume_token(PONTO_VIRGULA);
+      jj_consume_token(INC_DEC);
+      jj_consume_token(PARENTESE_F);
+      jj_consume_token(CHAVE_A);
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case FOR:{
+        FOR();
+        break;
+        }
+      default:
+        jj_la1[3] = jj_gen;
+        ;
+      }
+      jj_consume_token(CHAVE_F);
+    } finally {
+      trace_return("FOR");
+    }
+}
+
+  final public void INPUT() throws ParseException {
+    trace_call("INPUT");
+    try {
+
+      jj_consume_token(INPUT);
+      jj_consume_token(PARENTESE_A);
+      jj_consume_token(LITERAL);
+      jj_consume_token(PARENTESE_F);
+    } finally {
+      trace_return("INPUT");
+    }
+}
+
+  final public void PRINT() throws ParseException {
+    trace_call("PRINT");
+    try {
+
+      jj_consume_token(PRINT);
+      jj_consume_token(PARENTESE_A);
+      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+      case 39:{
+        jj_consume_token(39);
+        jj_consume_token(LITERAL);
+        jj_consume_token(39);
+        label_1:
+        while (true) {
+          switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+          case VIRGULA:{
+            ;
+            break;
+            }
+          default:
+            jj_la1[4] = jj_gen;
+            break label_1;
+          }
+          jj_consume_token(VIRGULA);
+          jj_consume_token(LITERAL);
+        }
+        break;
+        }
+      case LITERAL:{
+        jj_consume_token(LITERAL);
+        break;
+        }
+      case VALUE:{
+        jj_consume_token(VALUE);
+        break;
+        }
+      default:
+        jj_la1[5] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      jj_consume_token(PARENTESE_F);
+    } finally {
+      trace_return("PRINT");
+    }
+}
+
+  final public void FUNCAO() throws ParseException {
+    trace_call("FUNCAO");
+    try {
+
+      jj_consume_token(FUNCAO);
+      jj_consume_token(LITERAL);
+      jj_consume_token(PARENTESE_A);
+      jj_consume_token(TIPO);
+      jj_consume_token(LITERAL);
+      label_2:
+      while (true) {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case VIRGULA:{
+          ;
+          break;
+          }
+        default:
+          jj_la1[6] = jj_gen;
+          break label_2;
+        }
+        jj_consume_token(VIRGULA);
+        jj_consume_token(TIPO);
+        jj_consume_token(LITERAL);
+      }
+      jj_consume_token(PARENTESE_F);
+      jj_consume_token(CHAVE_A);
+      jj_consume_token(CHAVE_F);
+    } finally {
+      trace_return("FUNCAO");
     }
 }
 
@@ -39,17 +221,17 @@ public class Trabalho01 implements Trabalho01Constants {
     trace_call("Start");
     try {
 
-      label_1:
+      label_3:
       while (true) {
-        IF();
+        FUNCAO();
         switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-        case IF:{
+        case FUNCAO:{
           ;
           break;
           }
         default:
-          jj_la1[0] = jj_gen;
-          break label_1;
+          jj_la1[7] = jj_gen;
+          break label_3;
         }
       }
       jj_consume_token(0);
@@ -67,13 +249,18 @@ public class Trabalho01 implements Trabalho01Constants {
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[1];
+  final private int[] jj_la1 = new int[8];
   static private int[] jj_la1_0;
+  static private int[] jj_la1_1;
   static {
 	   jj_la1_init_0();
+	   jj_la1_init_1();
 	}
 	private static void jj_la1_init_0() {
-	   jj_la1_0 = new int[] {0x200,};
+	   jj_la1_0 = new int[] {0x80000,0x100000,0x80000,0x400000,0x0,0x80000000,0x0,0x2000000,};
+	}
+	private static void jj_la1_init_1() {
+	   jj_la1_1 = new int[] {0x0,0x0,0x0,0x0,0x8,0x82,0x8,0x0,};
 	}
 
   {
@@ -90,7 +277,7 @@ public class Trabalho01 implements Trabalho01Constants {
 	 token = new Token();
 	 jj_ntk = -1;
 	 jj_gen = 0;
-	 for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+	 for (int i = 0; i < 8; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -104,7 +291,7 @@ public class Trabalho01 implements Trabalho01Constants {
 	 token = new Token();
 	 jj_ntk = -1;
 	 jj_gen = 0;
-	 for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+	 for (int i = 0; i < 8; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -114,7 +301,7 @@ public class Trabalho01 implements Trabalho01Constants {
 	 token = new Token();
 	 jj_ntk = -1;
 	 jj_gen = 0;
-	 for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+	 for (int i = 0; i < 8; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -132,7 +319,7 @@ public class Trabalho01 implements Trabalho01Constants {
 	 token = new Token();
 	 jj_ntk = -1;
 	 jj_gen = 0;
-	 for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+	 for (int i = 0; i < 8; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -141,7 +328,7 @@ public class Trabalho01 implements Trabalho01Constants {
 	 token = new Token();
 	 jj_ntk = -1;
 	 jj_gen = 0;
-	 for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+	 for (int i = 0; i < 8; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -150,7 +337,7 @@ public class Trabalho01 implements Trabalho01Constants {
 	 token = new Token();
 	 jj_ntk = -1;
 	 jj_gen = 0;
-	 for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+	 for (int i = 0; i < 8; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -203,21 +390,24 @@ public class Trabalho01 implements Trabalho01Constants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
 	 jj_expentries.clear();
-	 boolean[] la1tokens = new boolean[18];
+	 boolean[] la1tokens = new boolean[40];
 	 if (jj_kind >= 0) {
 	   la1tokens[jj_kind] = true;
 	   jj_kind = -1;
 	 }
-	 for (int i = 0; i < 1; i++) {
+	 for (int i = 0; i < 8; i++) {
 	   if (jj_la1[i] == jj_gen) {
 		 for (int j = 0; j < 32; j++) {
 		   if ((jj_la1_0[i] & (1<<j)) != 0) {
 			 la1tokens[j] = true;
 		   }
+		   if ((jj_la1_1[i] & (1<<j)) != 0) {
+			 la1tokens[32+j] = true;
+		   }
 		 }
 	   }
 	 }
-	 for (int i = 0; i < 18; i++) {
+	 for (int i = 0; i < 40; i++) {
 	   if (la1tokens[i]) {
 		 jj_expentry = new int[1];
 		 jj_expentry[0] = i;

@@ -1,1 +1,1 @@
-sepa(abc==abc){}
+funcao abc(int atr, boolean arb, String opc){}
