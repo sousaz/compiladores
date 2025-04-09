@@ -29,7 +29,7 @@ A sintaxe dos comentários em Paulista Language é semelhante as outras linguage
 | `<=` | Menor ou igual  |
 |  `>`| Maior que  |
 | `>=` | Maior ou igual  |
-|` ==`  |  Igual |
+|`==`  |  Igual |
 | `!=`  | Diferente  |
 
 ## Operadores artiméticos
