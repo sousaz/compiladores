@@ -13,67 +13,71 @@ public interface Trabalho01Constants {
   /** RegularExpression Id. */
   int COMENTARIO_BLOCO = 7;
   /** RegularExpression Id. */
-  int TIPO = 8;
+  int STRING_LITERAL = 8;
   /** RegularExpression Id. */
-  int INT = 9;
+  int TIPO = 9;
   /** RegularExpression Id. */
-  int STRING = 10;
+  int INT = 10;
   /** RegularExpression Id. */
-  int BYTE = 11;
+  int STRING = 11;
   /** RegularExpression Id. */
-  int SHORT = 12;
+  int FLOAT = 12;
   /** RegularExpression Id. */
-  int LONG = 13;
+  int BOOLEAN = 13;
   /** RegularExpression Id. */
-  int FLOAT = 14;
+  int MAIN = 14;
   /** RegularExpression Id. */
-  int DOUBLE = 15;
+  int IMPORT = 15;
   /** RegularExpression Id. */
-  int CHAR = 16;
+  int RETURN = 16;
   /** RegularExpression Id. */
-  int BOOLEAN = 17;
+  int TF = 17;
   /** RegularExpression Id. */
-  int OPERADOR_ARITMETICO = 18;
+  int TRUE = 18;
   /** RegularExpression Id. */
-  int IF = 19;
+  int FALSE = 19;
   /** RegularExpression Id. */
-  int ELSE = 20;
+  int OPERADOR_ARITMETICO = 20;
   /** RegularExpression Id. */
-  int WHILE = 21;
+  int IF = 21;
   /** RegularExpression Id. */
-  int FOR = 22;
+  int ELSE = 22;
   /** RegularExpression Id. */
-  int INPUT = 23;
+  int WHILE = 23;
   /** RegularExpression Id. */
-  int PRINT = 24;
+  int FOR = 24;
   /** RegularExpression Id. */
-  int FUNCAO = 25;
+  int INPUT = 25;
   /** RegularExpression Id. */
-  int PARENTESE_A = 26;
+  int PRINT = 26;
   /** RegularExpression Id. */
-  int PARENTESE_F = 27;
+  int FUNCAO = 27;
   /** RegularExpression Id. */
-  int CHAVE_A = 28;
+  int PARENTESE_A = 28;
   /** RegularExpression Id. */
-  int CHAVE_F = 29;
+  int PARENTESE_F = 29;
   /** RegularExpression Id. */
-  int ATRIBUICAO = 30;
+  int CHAVE_A = 30;
   /** RegularExpression Id. */
-  int LITERAL = 31;
+  int CHAVE_F = 31;
   /** RegularExpression Id. */
-  int OPERADOR_RELACIONAL = 32;
+  int ATRIBUICAO = 32;
   /** RegularExpression Id. */
-  int VALUE = 33;
+  int LITERAL = 33;
   /** RegularExpression Id. */
-  int PONTO_VIRGULA = 34;
+  int OPERADOR_RELACIONAL = 34;
   /** RegularExpression Id. */
-  int VIRGULA = 35;
+  int VALUE = 35;
   /** RegularExpression Id. */
-  int INC_DEC = 36;
+  int PONTO_VIRGULA = 36;
   /** RegularExpression Id. */
-  int NUMBER = 37;
+  int VIRGULA = 37;
   /** RegularExpression Id. */
-  int LETTER = 38;
+  int INC_DEC = 38;
+  /** RegularExpression Id. */
+  int NUMBER = 39;
+  /** RegularExpression Id. */
+  int LETTER = 40;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -88,16 +92,18 @@ public interface Trabalho01Constants {
     "\"\\r\\n\"",
     "<COMENTARIO_LINHA>",
     "<COMENTARIO_BLOCO>",
+    "<STRING_LITERAL>",
     "<TIPO>",
     "\"int\"",
     "\"String\"",
-    "\"byte\"",
-    "\"short\"",
-    "\"long\"",
     "\"float\"",
-    "\"double\"",
-    "\"char\"",
     "\"boolean\"",
+    "\"salve\"",
+    "\"import\"",
+    "\"return\"",
+    "<TF>",
+    "\"true\"",
+    "\"false\"",
     "<OPERADOR_ARITMETICO>",
     "\"sepa\"",
     "\"sepaqnao\"",
@@ -119,7 +125,6 @@ public interface Trabalho01Constants {
     "<INC_DEC>",
     "<NUMBER>",
     "<LETTER>",
-    "\"\\\"\"",
   };
 
 }

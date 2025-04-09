@@ -1,0 +1,100 @@
+options {
+	static = false;
+	DEBUG_PARSER = true;
+	DEBUG_TOKEN_MANAGER = true;
+}
+
+PARSER_BEGIN(Estados)
+
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.IOException;
+
+public class Estados{
+	public static void main(String args[]) throws ParseException {
+		try {
+			System.out.println("lendo um arquivo fonte...");
+			FileInputStream fis = new FileInputStream(new File("..//javacc//src//estados.txt"));
+			Estados parser = new Estados(fis);
+			parser.Start();
+			System.out.println("Arquivo fonte processado corretamente");
+		} catch(IOException e) {
+			System.out.println("Falha ao abrir o arquivo");
+			System.exit(0);
+		}
+	}
+}
+
+PARSER_END(Estados)
+
+SKIP : { " " | "\t" | "\n" | "\r" | "\r\n" }
+
+TOKEN :{ < EOL : ";" > }
+
+TOKEN:
+{
+< #LETTER: ["a"-"z", "A"-"Z"] > |
+< #DIGIT : [ "0"-"9" ] >
+}
+
+TOKEN :
+{
+< TIPO : (<INT> | <STRING>|<BYTE>|<SHORT>|<LONG>|<FLOAT>)|<DOUBLE>|<CHAR>|<BOOLEAN> > |
+< #INT : "int"> |
+< #STRING : "String"> |
+< #BYTE : "byte" > |
+< #SHORT : "short" > |
+< #LONG : "long" > |
+< #FLOAT : "float" > |
+< #DOUBLE : "double" > |
+< #CHAR : "char" > |
+< #BOOLEAN : "boolean" >
+}
+
+TOKEN :
+{
+  < TF : (< TRUE > | < FALSE >) > |
+  < #TRUE: "true" > | < #FALSE: "false" >
+}
+
+
+TOKEN :
+{
+< LITERALS : <LETTER>(<LETTER>|<DIGIT>|"_")*>
+}
+
+TOKEN :
+{
+< VALUES : < DIGIT >(< DIGIT >)* |
+	"\""< LETTER >(< LETTER >|< DIGIT >|"_")* "\"">
+}
+
+void IDR():
+{}
+{
+  (< LITERALS > | ","IDR())+
+}
+
+void IDIR():
+{}
+{
+  < VALUES >(","< LITERALS >"="< VALUES >)*
+}
+
+void ID():
+{}
+{
+  < TIPO >< LITERALS >(","IDR() | "="IDIR())* < EOL >
+}
+
+
+void Start():
+{}
+{
+  (ID())+ < EOF >
+}
+
+
+
+
+

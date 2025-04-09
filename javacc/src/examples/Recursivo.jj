@@ -1,0 +1,44 @@
+options {
+	static = false;
+}
+
+PARSER_BEGIN(Recursivo)
+
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.IOException;
+
+public class Recursivo{
+	public static void main(String args[]) throws ParseException {
+		try {
+			System.out.println("lendo um arquivo fonte...");
+			FileInputStream fis = new FileInputStream(new File("..//javacc//src//recursivo.txt"));
+			Recursivo parser = new Recursivo(fis);
+//			Adder parser = new Adder(System.in);
+			parser.S();
+			System.out.println("Arquivo fonte processado corretamente");
+		} catch(IOException e) {
+			System.out.println("Falha ao abrir o arquivo");
+			System.exit(0);
+		}
+	}
+}
+
+PARSER_END(Recursivo)
+
+SKIP : { " " | "\t" | "\n" | "\r" }
+
+//void start() : {} { ("a" "b")* < EOF > }
+// S - > aSb | ab 
+
+void S() :
+{}
+{
+  ("a"[AB()]"b")? < EOF >
+}
+
+void AB() :
+{}
+{
+	"a" [AB()] "b"
+}

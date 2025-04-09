@@ -1,0 +1,35 @@
+options {
+	static = false;
+	DEBUG_PARSER = true;
+	DEBUG_TOKEN_MANAGER = true;
+}
+
+PARSER_BEGIN(Nome)
+
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.IOException;
+
+public class Nome{
+	public static void main(String args[]) throws ParseException {
+		try {
+			System.out.println("lendo um arquivo fonte...");
+			FileInputStream fis = new FileInputStream(new File("..//javacc//src//nome.txt"));
+			Nome parser = new Nome(fis);
+//			Adder parser = new Adder(System.in);
+			parser.start();
+			System.out.println("Arquivo fonte processado corretamente");
+		} catch(IOException e) {
+			System.out.println("Falha ao abrir o arquivo");
+			System.exit(0);
+		}
+	}
+}
+
+PARSER_END(Nome)
+
+SKIP : { " " | "\t" | "\n" | "\r" }
+
+TOKEN [IGNORE_CASE] : { < JOSE : ("j"|"o"|"s"|"e")+ > }
+
+void start() : {} { (< JOSE >)+ < EOF > }

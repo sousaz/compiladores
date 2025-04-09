@@ -26,131 +26,169 @@ public class Trabalho01{
 
 PARSER_END(Trabalho01)
 
+// Usado para ignorar espações em branco, tabulações, quebra de linhas e quebras de linhas duplas
 SKIP : { " " | "\t" | "\n" | "\r" | "\r\n" }
 
+// Token responsável por identificar comentários em uma única linha
 TOKEN : {
   < COMENTARIO_LINHA : "//" ((~["\n", "\r"])*) >
 }
 
+// Token responsável por identificar comentários em bloco
 TOKEN : {
 	< COMENTARIO_BLOCO : "/*" (~["*"])* "*" (~["*","/"] (~["*"])* "*" | "*")* "/" >
 }
 
+// Token responsável por identificar strings que comecem e terminem com aspas ou seja strings literais
+TOKEN : {
+  < STRING_LITERAL : "\"" (~["\""])* "\"" >
+}
+
+// Token responsável por identificar os tipos permitido na linguagem sendo eles int, String, float e boolean
 TOKEN :
 {
-< TIPO : (<INT> | <STRING>|<BYTE>|<SHORT>|<LONG>|<FLOAT>)|<DOUBLE>|<CHAR>|<BOOLEAN> > |
+< TIPO : (<INT> | <STRING> | <FLOAT> |<BOOLEAN>) > |
 < #INT : "int"> |
 < #STRING : "String"> |
-< #BYTE : "byte" > |
-< #SHORT : "short" > |
-< #LONG : "long" > |
 < #FLOAT : "float" > |
-< #DOUBLE : "double" > |
-< #CHAR : "char" > |
 < #BOOLEAN : "boolean" >
 }
 
+// Token responsável por identificar a palavra chave para a função principal
+TOKEN : { < MAIN : "salve" > }
+
+// Token responsável por identificar a palavra chave para importar
+TOKEN : { < IMPORT : "import" > }
+
+// Token responsável por identificar a palavra chave para return
+TOKEN : { < RETURN : "return" > }
+
+// Token responsável por identificar a palavra chave para verdadeiro ou falso
+TOKEN :
+{
+  < TF : (< TRUE > | < FALSE >) > |
+  < #TRUE: "true" > | < #FALSE: "false" >
+}
+
+// Token responsável por identificar os operadores aritméticos permitidos
 TOKEN: {
 	< OPERADOR_ARITMETICO : ("+" | "-" | "/" | "*") >
 }
 
-
+// Token responsável por identificar a palavra chave para a estrutura de decisão if
 TOKEN : {
 	< IF : "sepa" >
 }
 
+// Token responsável por identificar a palavra chave para a estrutura de decisão else
 TOKEN : {
 	< ELSE : "sepaqnao" >
 }
 
+// Token responsável por identificar a palavra chave para a estrutura de repetição while
 TOKEN : {
 	< WHILE : "trampo" >
 }
 
+// Token responsável por identificar a palavra chave para a estrutura de repetição for
 TOKEN : {
 	< FOR : "mocota" >
 }
 
+// Token responsável por identificar a palavra chave para a leitura de dados
 TOKEN : {
 	< INPUT : "desembucha" >
 }
 
+// Token responsável por identificar a palavra chave para a escrita de dados
 TOKEN : {
 	< PRINT : "chegaai" > 
 }
 
+// Token responsável por identificar a palavra chave para a criação de funções
 TOKEN : {
 	< FUNCAO : "funcao" > 
 }
 
+// Token responsável por identificar a abertura de parêntese
 TOKEN : {
   < PARENTESE_A : "(" >
 }
 
+// Token responsável por identificar a fecha de parêntese
 TOKEN : {
   < PARENTESE_F : ")" >
 }
 
+// Token responsável por identificar a abertura de chave
 TOKEN : {
 	< CHAVE_A : "{" >
 }
 
+// Token responsável por identificar a fecha de chave
 TOKEN : {
 	< CHAVE_F : "}" >
 }
 
+// Token responsável por identificar o caracter reservado para atribuição de valores
 TOKEN : {
 	< ATRIBUICAO : "=" >
 }
 
+// Token responsável por identificar a criação de literais como nomes de variáveis
 TOKEN : {
 	< LITERAL : < LETTER > (< NUMBER > | <LETTER > | "_")* >
 }
 
+// Token responsável por identificar os operadores relacionais
 TOKEN : {
 	< OPERADOR_RELACIONAL : ("<" | "<=" | ">" | ">=" | "==" | "!=") >
 }
 
+// Token responsável por identificar valores numéricos
 TOKEN : {
 	<  VALUE : < NUMBER > >
 }
 
+// Token responsável por identificar o ponto e vírgula
 TOKEN : {
 	< PONTO_VIRGULA : ";" >
 }
 
+// Token responsável por identificar a vírgula
 TOKEN : {
 	< VIRGULA : "," >
 }
 
+// Token responsável por identificar o incremento ou decremento de uma variável
 TOKEN : {
 	<  INC_DEC : (< LITERAL >"++") | (< LITERAL >"--") >
 }
 
+// Token privado responsável por identificar valores numéricos
 TOKEN : { < #NUMBER : ([ "0"-"9" ]) + | ([ "0"-"9" ])+ "," ([ "0"-"9" ])+ > }
 
+// Token responsável por identificar palavras de a-z
 TOKEN : { < #LETTER : ([ "a"-"z" ])+ > }
-
-// TODO literal pode ser numero tambem
 
 void IF(): {}
 {
-  < IF > < PARENTESE_A > < LITERAL >  <OPERADOR_RELACIONAL > < LITERAL > < PARENTESE_F > < CHAVE_A > (IF())? < CHAVE_F > (ELSE())?
+  < IF > < PARENTESE_A > (< LITERAL > | < VALUE >)  <OPERADOR_RELACIONAL > (< LITERAL > | < VALUE >) < PARENTESE_F > < CHAVE_A > (COMANDO())* < CHAVE_F > (ELSE())?
 }
 
 void ELSE(): {}
 {
-  < ELSE > < CHAVE_A > (IF())? < CHAVE_F >
+  < ELSE > < CHAVE_A > (COMANDO())* < CHAVE_F >
 }
 
 void WHILE(): {}
 {
-  < WHILE >  < PARENTESE_A > < LITERAL >  <OPERADOR_RELACIONAL > < LITERAL > < PARENTESE_F > < CHAVE_A > < CHAVE_F >
+  < WHILE >  < PARENTESE_A > < LITERAL >  <OPERADOR_RELACIONAL > (< LITERAL > | < VALUE >) < PARENTESE_F > < CHAVE_A > (COMANDO())* < CHAVE_F >
 }
 
 void FOR(): {}
 {
-  < FOR > < PARENTESE_A > < TIPO > < LITERAL > < ATRIBUICAO > < VALUE > < PONTO_VIRGULA > < LITERAL > < OPERADOR_RELACIONAL > < VALUE > < PONTO_VIRGULA > < INC_DEC > < PARENTESE_F > < CHAVE_A > (FOR())? < CHAVE_F >
+  < FOR > < PARENTESE_A > < TIPO > < LITERAL > < ATRIBUICAO > < VALUE > < PONTO_VIRGULA > < LITERAL > < OPERADOR_RELACIONAL > (< LITERAL >|< VALUE >) < PONTO_VIRGULA > < INC_DEC > < PARENTESE_F > < CHAVE_A > (COMANDO())* < CHAVE_F >
 }
 
 void INPUT(): {}
@@ -160,17 +198,47 @@ void INPUT(): {}
 
 void PRINT(): {}
 {
-  <  PRINT > < PARENTESE_A > (("\""< LITERAL >"\"" (< VIRGULA > < LITERAL >)*) | < LITERAL > | < VALUE >) < PARENTESE_F >
+  <  PRINT > < PARENTESE_A > ((< STRING_LITERAL > (< VIRGULA > < LITERAL >)*) | < LITERAL > | < VALUE >) < PARENTESE_F >
 }
 
 void FUNCAO(): {}
 {
-  < FUNCAO > < LITERAL > < PARENTESE_A > (< TIPO > < LITERAL > (< VIRGULA > < TIPO > < LITERAL >)*) < PARENTESE_F > < CHAVE_A > < CHAVE_F >
+  < FUNCAO > < LITERAL > < PARENTESE_A > (< TIPO > < LITERAL > (< VIRGULA > < TIPO > < LITERAL >)*)? < PARENTESE_F > < CHAVE_A > (COMANDO())* (< RETURN > (< LITERAL > | < VALUE > | < STRING_LITERAL > | < TF >) < PONTO_VIRGULA >)?  < CHAVE_F >
+}
+
+void MAIN(): {}
+{
+  < MAIN > < PARENTESE_A > < PARENTESE_F > < CHAVE_A > (COMANDO())* < CHAVE_F >
+}
+
+void IMPORT(): {}
+{
+  < IMPORT > < LITERAL >
+}
+
+void ID() : {}
+{
+  < TIPO > < LITERAL > ("=" (LOOKAHEAD(2)CHAMANDO() | < LITERAL > | < VALUE > | < TF > | < STRING_LITERAL >))? (< VIRGULA > < LITERAL > ("=" (< LITERAL > | < VALUE > | < TF > | < STRING_LITERAL >))?)*
+}
+
+void COMANDO() : {}
+{
+  ((IF() | WHILE() | FOR() | FUNCAO() | MAIN() | < COMENTARIO_LINHA > | < COMENTARIO_BLOCO >) | ((ID() | INPUT() | PRINT() | IMPORT() | LOOKAHEAD(2)CHAMANDO() | LOOKAHEAD(2)CONTA() | < INC_DEC >) < PONTO_VIRGULA >))
+}
+
+void CHAMANDO() : {}
+{
+  < LITERAL > < PARENTESE_A > ((< LITERAL > | < VALUE > | < TF > | < STRING_LITERAL >) (< VIRGULA > (< LITERAL > | < VALUE >| < TF > | < STRING_LITERAL >))*)? < PARENTESE_F >
+}
+
+void CONTA() : {}
+{
+ < LITERAL > < ATRIBUICAO > (< LITERAL > | < VALUE >) (< OPERADOR_ARITMETICO > (< LITERAL > | < VALUE >))*
 }
 
 void Start():
 {}
 {
 //  ((< COMENTARIO_LINHA >) | (< COMENTARIO_BLOCO >))* < EOF >
-	(FUNCAO())+ < EOF >
+	(COMANDO())+ < EOF >
 }

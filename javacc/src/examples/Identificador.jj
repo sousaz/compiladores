@@ -1,0 +1,66 @@
+options {
+	static = false;	
+}
+
+PARSER_BEGIN(Identificador)
+
+import java.io.FileInputStream;
+import java.io.File;
+import java.io.IOException;
+
+public class Identificador{
+	public static void main(String args[]) throws ParseException {
+		try {
+			System.out.println("lendo um arquivo fonte...");
+			FileInputStream fis = new FileInputStream(new File("..//javacc//src//identificador.txt"));
+			Identificador parser = new Identificador(fis);
+//			Adder parser = new Adder(System.in);
+			parser.start();
+			System.out.println("Arquivo fonte processado corretamente");
+		} catch(IOException e) {
+			System.out.println("Falha ao abrir o arquivo");
+			System.exit(0);
+		}
+	}
+}
+
+PARSER_END(Identificador)
+
+SKIP : { " " | "\t" | "\n" | "\r" }
+
+TOKEN :
+{
+< EOL : ";" >
+}
+
+TOKEN:
+{
+< #LETTER: ["a"-"z", "A"-"Z"] > |
+< #DIGIT : [ "0"-"9" ] >
+}
+
+TOKEN :
+{
+< TIPO : (<INT> | <STRING>) > |
+< #INT : "int"> |
+< #STRING : "String">
+}
+
+TOKEN :
+{
+< NOME : <LETTER>(<LETTER>|<DIGIT>|"_")*>
+}
+
+void start() :
+{}
+{
+  ( ID())+< EOF >
+}
+
+void ID():
+{}
+{
+  < TIPO > < NOME > < EOL >
+}
+
+

@@ -1,1 +1,25 @@
-funcao abc(int atr, boolean arb, String opc){}
+import bibh;
+
+int a = 0;
+String a = "abc";
+
+// função abc
+funcao abc(int a, String b){
+	sepa(a < 10){
+		trampo(a < 10){
+			a++;
+		}
+	}sepaqnao{
+		mocota(int i = 0; i <= 5; i++){
+			chegaai(b);
+		}
+	}
+	return 10;
+}
+/* função principal
+é bom demais
+*/
+salve(){
+	String erro = "Erro";
+	boolean teste = abc(a, erro);
+}
