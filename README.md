@@ -60,7 +60,7 @@ boolean pago = true, devendo = false; //Ambas as variáveis serão o mesmo tipo.
 
 ## Estruturas de repetição
 
-Existem duas estruturas de repetição:
+ Existem duas estruturas de repetição:
 
  `trampo` que é o equivalente ao while em outras linguagens.
 
@@ -159,7 +159,11 @@ funcao quadrado(int numero, String nome){
 ## Função principal
 
 Para o código funcionar ele precisa estar dentro da função principal `salve`.
-
+```bash
+salve(){
+    
+}
+```
 `Exemplo:`
 ```bash
 import bib;
@@ -182,7 +186,6 @@ salve(){
     String erro = "Erro";
     abc(a, erro);
 }
-
 ```
 ## Importação
 
